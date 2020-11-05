@@ -532,14 +532,14 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       textInputAction:
           auth.isLogin ? TextInputAction.done : TextInputAction.next,
       focusNode: _passwordFocusNode,
-      // onFieldSubmitted: (value) {
-      //   if (auth.isLogin) {
-      //     _submit();
-      //   } else {
-      //     // SignUp
-      //     FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
-      //   }
-      // },
+      onFieldSubmitted: (value) {
+        if (auth.isLogin) {
+          _submit();
+        } else {
+          // SignUp
+          FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
+        }
+      },
       validator: widget.passwordValidator,
       onSaved: (value) => auth.password = value,
     );
@@ -557,7 +557,7 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
       controller: _confirmPassController,
       textInputAction: TextInputAction.done,
       focusNode: _confirmPasswordFocusNode,
-      // onFieldSubmitted: (value) => _submit(),
+      onFieldSubmitted: (value) => _submit(),
       validator: auth.isSignup
           ? (value) {
               if (value != _passController.text) {
