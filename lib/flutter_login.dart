@@ -2,10 +2,10 @@ library flutter_login;
 
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/src/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'src/providers/login_theme.dart';
 import 'src/widgets/null_widget.dart';
@@ -24,47 +24,47 @@ export 'src/providers/login_messages.dart';
 export 'src/providers/login_theme.dart';
 import 'src/constants.dart';
 
-class _AnimationTimeDilationDropdown extends StatelessWidget {
-  _AnimationTimeDilationDropdown({
-    @required this.onChanged,
-    this.initialValue = 1.0,
-  });
+// class _AnimationTimeDilationDropdown extends StatelessWidget {
+//   _AnimationTimeDilationDropdown({
+//     @required this.onChanged,
+//     this.initialValue = 1.0,
+//   });
 
-  final Function onChanged;
-  final double initialValue;
-  static const animationSpeeds = const [1, 2, 5, 10];
+//   final Function onChanged;
+//   final double initialValue;
+//   static const animationSpeeds = const [1, 2, 5, 10];
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              'x1 is normal time, x5 means the animation is 5x times slower for debugging purpose',
-              textAlign: TextAlign.center,
-            ),
-          ),
-          SizedBox(
-            height: 125,
-            child: CupertinoPicker(
-              scrollController: FixedExtentScrollController(
-                initialItem: animationSpeeds.indexOf(initialValue.toInt()),
-              ),
-              itemExtent: 30.0,
-              backgroundColor: Colors.white,
-              onSelectedItemChanged: onChanged,
-              children: animationSpeeds.map((x) => Text('x$x')).toList(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 200,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: <Widget>[
+//           Padding(
+//             padding: const EdgeInsets.all(10.0),
+//             child: Text(
+//               'x1 is normal time, x5 means the animation is 5x times slower for debugging purpose',
+//               textAlign: TextAlign.center,
+//             ),
+//           ),
+//           SizedBox(
+//             height: 125,
+//             child: CupertinoPicker(
+//               scrollController: FixedExtentScrollController(
+//                 initialItem: animationSpeeds.indexOf(initialValue.toInt()),
+//               ),
+//               itemExtent: 30.0,
+//               backgroundColor: Colors.white,
+//               onSelectedItemChanged: onChanged,
+//               children: animationSpeeds.map((x) => Text('x$x')).toList(),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class _Header extends StatefulWidget {
   _Header({
@@ -294,7 +294,7 @@ class _FlutterLoginState extends State<FlutterLogin>
   AnimationController _loadingController;
   AnimationController _logoController;
   AnimationController _titleController;
-  double _selectTimeDilation = 1.0;
+  // double _selectTimeDilation = 1.0;
 
   @override
   void initState() {
@@ -357,66 +357,66 @@ class _FlutterLoginState extends State<FlutterLogin>
     );
   }
 
-  Widget _buildDebugAnimationButtons() {
-    const textStyle = TextStyle(fontSize: 12, color: Colors.white);
+  // Widget _buildDebugAnimationButtons() {
+  //   const textStyle = TextStyle(fontSize: 12, color: Colors.white);
 
-    return Positioned(
-      bottom: 0,
-      right: 0,
-      child: Row(
-        key: kDebugToolbarKey,
-        children: <Widget>[
-          RaisedButton(
-            color: Colors.green,
-            child: Text('OPTIONS', style: textStyle),
-            onPressed: () {
-              timeDilation = 1.0;
+  //   return Positioned(
+  //     bottom: 0,
+  //     right: 0,
+  //     child: Row(
+  //       key: kDebugToolbarKey,
+  //       children: <Widget>[
+  //         RaisedButton(
+  //           color: Colors.green,
+  //           child: Text('OPTIONS', style: textStyle),
+  //           onPressed: () {
+  //             timeDilation = 1.0;
 
-              showModalBottomSheet(
-                context: context,
-                builder: (_) {
-                  return _AnimationTimeDilationDropdown(
-                    initialValue: _selectTimeDilation,
-                    onChanged: (int index) {
-                      setState(() {
-                        _selectTimeDilation = _AnimationTimeDilationDropdown
-                            .animationSpeeds[index]
-                            .toDouble();
-                      });
-                    },
-                  );
-                },
-              ).then((_) {
-                // wait until the BottomSheet close animation finishing before
-                // assigning or you will have to watch x100 time slower animation
-                Future.delayed(const Duration(milliseconds: 300), () {
-                  timeDilation = _selectTimeDilation;
-                });
-              });
-            },
-          ),
-          RaisedButton(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: Colors.blue,
-            child: Text('LOADING', style: textStyle),
-            onPressed: () => authCardKey.currentState.runLoadingAnimation(),
-          ),
-          RaisedButton(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: Colors.orange,
-            child: Text('PAGE', style: textStyle),
-            onPressed: () => authCardKey.currentState.runChangePageAnimation(),
-          ),
-          RaisedButton(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            color: Colors.red,
-            child: Text('NAV', style: textStyle),
-            onPressed: () => authCardKey.currentState.runChangeRouteAnimation(),
-          ),
-        ],
-      ),
-    );
-  }
+  //             showModalBottomSheet(
+  //               context: context,
+  //               builder: (_) {
+  //                 return _AnimationTimeDilationDropdown(
+  //                   initialValue: _selectTimeDilation,
+  //                   onChanged: (int index) {
+  //                     setState(() {
+  //                       _selectTimeDilation = _AnimationTimeDilationDropdown
+  //                           .animationSpeeds[index]
+  //                           .toDouble();
+  //                     });
+  //                   },
+  //                 );
+  //               },
+  //             ).then((_) {
+  //               // wait until the BottomSheet close animation finishing before
+  //               // assigning or you will have to watch x100 time slower animation
+  //               Future.delayed(const Duration(milliseconds: 300), () {
+  //                 timeDilation = _selectTimeDilation;
+  //               });
+  //             });
+  //           },
+  //         ),
+  //         RaisedButton(
+  //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //           color: Colors.blue,
+  //           child: Text('LOADING', style: textStyle),
+  //           onPressed: () => authCardKey.currentState.runLoadingAnimation(),
+  //         ),
+  //         RaisedButton(
+  //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //           color: Colors.orange,
+  //           child: Text('PAGE', style: textStyle),
+  //           onPressed: () => authCardKey.currentState.runChangePageAnimation(),
+  //         ),
+  //         RaisedButton(
+  //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //           color: Colors.red,
+  //           child: Text('NAV', style: textStyle),
+  //           onPressed: () => authCardKey.currentState.runChangeRouteAnimation(),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   ThemeData _mergeTheme({ThemeData theme, LoginTheme loginTheme}) {
     final originalPrimaryColor = loginTheme.primaryColor ?? theme.primaryColor;
@@ -593,8 +593,8 @@ class _FlutterLoginState extends State<FlutterLogin>
                 ),
               ),
             ),
-            if (!kReleaseMode && widget.showDebugButtons)
-              _buildDebugAnimationButtons(),
+            // if (!kReleaseMode && widget.showDebugButtons)
+            //   _buildDebugAnimationButtons(),
           ],
         ),
       ),

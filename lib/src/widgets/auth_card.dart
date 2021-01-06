@@ -16,7 +16,6 @@ import '../providers/login_messages.dart';
 import '../models/login_data.dart';
 import '../dart_helper.dart';
 import '../matrix.dart';
-import '../paddings.dart';
 import '../widget_helper.dart';
 
 class AuthCard extends StatefulWidget {

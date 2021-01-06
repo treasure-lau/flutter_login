@@ -16,6 +16,7 @@ dependencies:
   flushbar: ^1.9.1
   # flutter_test from sdk depends on quiver 2.0.5
   quiver: ^2.0.5
+  flutter_spinkit: "^3.1.0" # loading效果 
 
 dev_dependencies:
   flutter_test:
