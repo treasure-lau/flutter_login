@@ -551,6 +551,8 @@ class _FlutterLoginState extends State<FlutterLogin>
             onLogin: widget.onLogin,
             onSignup: widget.onSignup,
             onRecoverPassword: widget.onRecoverPassword,
+            email: widget.messages.username,
+            password: widget.messages.password,
           ),
         ),
       ],
